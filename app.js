@@ -121,7 +121,6 @@ const sessionCard = document.querySelector("#sessionCard");
 const adminSection = document.querySelector("[data-admin-section]");
 const documentForm = document.querySelector("#documentForm");
 const documentStatus = document.querySelector("#documentStatus");
-const documentList = document.querySelector("#documentList");
 const documentCategory = document.querySelector("#documentCategory");
 const categoryPage = document.querySelector("#categoryPage");
 
@@ -282,6 +281,25 @@ function documentUrl(document) {
   return document.path || "#";
 }
 
+function deletedDocumentPath(document) {
+  const currentPath = document.path || `official-documents/${categoryFolder(document.recordId)}/${document.fileName}`;
+  return currentPath.replace(/^official-documents\//, "deleted-documents/");
+}
+
+function activeDocuments() {
+  return documents.filter((document) => !document.deletedAt);
+}
+
+function moveDocumentToDeleted(documentId) {
+  const document = documents.find((item) => item.id === documentId);
+  if (!document) return null;
+
+  document.deletedAt = new Date().toISOString();
+  document.deletedBy = activeUser().email;
+  document.deletedPath = deletedDocumentPath(document);
+  return document;
+}
+
 function currentSectionId() {
   const match = window.location.hash.match(/^#section\/(.+)$/);
   return match ? match[1] : "";
@@ -304,8 +322,9 @@ function renderCategoryPage() {
     return;
   }
 
-  const visibleDocuments = documents.filter((document) => document.recordId === record.id && canView(document.visibility));
-  const lockedCount = documents.filter((document) => document.recordId === record.id && !canView(document.visibility)).length;
+  const currentDocuments = activeDocuments();
+  const visibleDocuments = currentDocuments.filter((document) => document.recordId === record.id && canView(document.visibility));
+  const lockedCount = currentDocuments.filter((document) => document.recordId === record.id && !canView(document.visibility)).length;
 
   categoryPage.innerHTML = `
     <a class="back-link" href="#library">Back to document sections</a>
@@ -326,6 +345,7 @@ function renderCategoryPage() {
                     </div>
                     <div class="document-actions">
                       <a class="plain-button" href="${documentUrl(document)}" target="_blank" rel="noopener">Open</a>
+                      ${isAdmin() ? `<button class="danger-button" type="button" data-delete-document="${document.id}">Delete</button>` : ""}
                     </div>
                   </article>
                 `,
@@ -335,57 +355,26 @@ function renderCategoryPage() {
       }
     </div>
   `;
-}
 
-function renderDocuments() {
-  adminSection.classList.toggle("is-hidden", !isAdmin());
-  documentForm.classList.toggle("is-hidden", !isAdmin());
-
-  const visibleDocuments = documents.filter((document) => canView(document.visibility));
-  const lockedCount = documents.length - visibleDocuments.length;
-
-  if (!documents.length) {
-    documentList.innerHTML = `<article class="document-row"><div><h3>No official documents uploaded yet</h3><p>Admins can add a document entry here, then commit the file and updated document index to GitHub.</p></div></article>`;
-    return;
-  }
-
-  documentList.innerHTML = `
-    ${visibleDocuments
-      .map((document) => {
-        const record = records.find((item) => item.id === document.recordId);
-        return `
-          <article class="document-row">
-            <div>
-              <h3>${document.title}</h3>
-              <div class="document-details">
-                <span>${record?.title || "Shared category"}</span>
-                <span>${document.fileName}</span>
-                <span>${new Date(document.uploadedAt).toLocaleDateString()}</span>
-                <span class="access-badge ${document.visibility}">${document.visibility}</span>
-              </div>
-            </div>
-            <div class="document-actions">
-              <a class="plain-button" href="${documentUrl(document)}" ${document.dataUrl ? `download="${document.fileName}"` : `target="_blank" rel="noopener"`}>Open</a>
-              ${isAdmin() ? `<button class="danger-button" type="button" data-delete-document="${document.id}">Delete</button>` : ""}
-            </div>
-          </article>
-        `;
-      })
-      .join("")}
-    ${
-      lockedCount
-        ? `<article class="document-row is-locked"><div><h3>${lockedCount} protected document${lockedCount === 1 ? " is" : "s are"} hidden</h3><p>Sign in as a member to view protected official records.</p></div></article>`
-        : ""
-    }
-  `;
-
-  documentList.querySelectorAll("[data-delete-document]").forEach((button) => {
+  categoryPage.querySelectorAll("[data-delete-document]").forEach((button) => {
     button.addEventListener("click", () => {
-      documents = documents.filter((document) => document.id !== button.dataset.deleteDocument);
-      documentStatus.textContent = "Document removed from this browser session. Commit the matching change to data/documents.json before publishing.";
+      const document = documents.find((item) => item.id === button.dataset.deleteDocument);
+      const confirmed = window.confirm(`Move "${document?.title || "this document"}" to deleted documents?`);
+      if (!confirmed) return;
+
+      const movedDocument = moveDocumentToDeleted(button.dataset.deleteDocument);
+      documentStatus.textContent = movedDocument
+        ? `Document marked deleted. Move the file from ${movedDocument.path} to ${movedDocument.deletedPath} and commit data/documents.json.`
+        : "Document marked deleted.";
       renderAll();
     });
   });
+}
+
+function renderDocuments() {
+  const showHomepageUpload = isAdmin() && !isCategoryPage();
+  adminSection.classList.toggle("is-hidden", !showHomepageUpload);
+  documentForm.classList.toggle("is-hidden", !showHomepageUpload);
 }
 
 function renderAll() {
