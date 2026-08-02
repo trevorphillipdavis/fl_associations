@@ -185,6 +185,11 @@ function safePathPart(value) {
   return value.toLowerCase().replace(/[^a-z0-9.-]+/g, "-").replace(/^-|-$/g, "");
 }
 
+function categoryFolder(recordId) {
+  const record = records.find((item) => item.id === recordId);
+  return safePathPart(record?.title || recordId);
+}
+
 function fileToDataUrl(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -447,21 +452,22 @@ documentForm.addEventListener("submit", async (event) => {
   const data = Object.fromEntries(new FormData(documentForm).entries());
   const file = documentForm.elements.file.files[0];
   const dataUrl = await fileToDataUrl(file);
+  const categoryVisibility = visibility[data.recordId] || defaultVisibility[data.recordId] || "protected";
   const document = {
     id: crypto.randomUUID(),
     title: data.title,
     recordId: data.recordId,
-    visibility: data.visibility,
+    visibility: categoryVisibility,
     fileName: file.name,
     fileType: file.type || "application/octet-stream",
-    path: `official-documents/${data.recordId}/${Date.now()}-${safePathPart(file.name)}`,
+    path: `official-documents/${categoryFolder(data.recordId)}/${Date.now()}-${safePathPart(file.name)}`,
     uploadedAt: new Date().toISOString(),
     uploadedBy: activeUser().email,
     dataUrl,
   };
 
   documents = [document, ...documents];
-  documentStatus.textContent = "Document staged in this browser. Add the file to official-documents/ and update data/documents.json before committing to GitHub.";
+  documentStatus.textContent = `Document staged as ${categoryVisibility}. Add the file to its category folder under official-documents/ and update data/documents.json before committing to GitHub.`;
   documentForm.reset();
   renderAll();
 });

@@ -6,7 +6,7 @@
     "visibility": "protected",
     "fileName": "articles-of-incorporation-placeholder.pdf",
     "fileType": "application/pdf",
-    "path": "official-documents/placeholders/articles-of-incorporation-placeholder.pdf",
+    "path": "official-documents/articles-of-incorporation/articles-of-incorporation-placeholder.pdf",
     "uploadedAt": "2026-08-01T12:00:00.000Z",
     "uploadedBy": "admin@encantada.com"
   },
@@ -17,7 +17,7 @@
     "visibility": "protected",
     "fileName": "recorded-bylaws-placeholder.pdf",
     "fileType": "application/pdf",
-    "path": "official-documents/placeholders/recorded-bylaws-placeholder.pdf",
+    "path": "official-documents/recorded-bylaws/recorded-bylaws-placeholder.pdf",
     "uploadedAt": "2026-08-01T12:05:00.000Z",
     "uploadedBy": "admin@encantada.com"
   },
@@ -28,7 +28,7 @@
     "visibility": "protected",
     "fileName": "declaration-of-covenants-placeholder.pdf",
     "fileType": "application/pdf",
-    "path": "official-documents/placeholders/declaration-of-covenants-placeholder.pdf",
+    "path": "official-documents/declaration-or-covenants/declaration-of-covenants-placeholder.pdf",
     "uploadedAt": "2026-08-01T12:10:00.000Z",
     "uploadedBy": "admin@encantada.com"
   },
@@ -39,7 +39,7 @@
     "visibility": "protected",
     "fileName": "community-rules-placeholder.pdf",
     "fileType": "application/pdf",
-    "path": "official-documents/placeholders/community-rules-placeholder.pdf",
+    "path": "official-documents/current-association-rules/community-rules-placeholder.pdf",
     "uploadedAt": "2026-08-01T12:15:00.000Z",
     "uploadedBy": "admin@encantada.com"
   },
@@ -50,7 +50,7 @@
     "visibility": "protected",
     "fileName": "current-contract-register-placeholder.pdf",
     "fileType": "application/pdf",
-    "path": "official-documents/placeholders/current-contract-register-placeholder.pdf",
+    "path": "official-documents/contracts-and-obligation-lists/current-contract-register-placeholder.pdf",
     "uploadedAt": "2026-08-01T12:20:00.000Z",
     "uploadedBy": "admin@encantada.com"
   },
@@ -61,7 +61,7 @@
     "visibility": "protected",
     "fileName": "closed-bid-list-placeholder.pdf",
     "fileType": "application/pdf",
-    "path": "official-documents/placeholders/closed-bid-list-placeholder.pdf",
+    "path": "official-documents/bid-lists-after-bidding-closes/closed-bid-list-placeholder.pdf",
     "uploadedAt": "2026-08-01T12:25:00.000Z",
     "uploadedBy": "admin@encantada.com"
   },
@@ -72,7 +72,7 @@
     "visibility": "protected",
     "fileName": "adopted-annual-budget-placeholder.pdf",
     "fileType": "application/pdf",
-    "path": "official-documents/placeholders/adopted-annual-budget-placeholder.pdf",
+    "path": "official-documents/annual-and-proposed-budgets/adopted-annual-budget-placeholder.pdf",
     "uploadedAt": "2026-08-01T12:30:00.000Z",
     "uploadedBy": "admin@encantada.com"
   },
@@ -83,7 +83,7 @@
     "visibility": "protected",
     "fileName": "monthly-financial-statement-placeholder.pdf",
     "fileType": "application/pdf",
-    "path": "official-documents/placeholders/monthly-financial-statement-placeholder.pdf",
+    "path": "official-documents/financial-reports-and-monthly-statements/monthly-financial-statement-placeholder.pdf",
     "uploadedAt": "2026-08-01T12:35:00.000Z",
     "uploadedBy": "admin@encantada.com"
   },
@@ -94,7 +94,7 @@
     "visibility": "protected",
     "fileName": "director-certification-log-placeholder.pdf",
     "fileType": "application/pdf",
-    "path": "official-documents/placeholders/director-certification-log-placeholder.pdf",
+    "path": "official-documents/director-education-or-certification-records/director-certification-log-placeholder.pdf",
     "uploadedAt": "2026-08-01T12:40:00.000Z",
     "uploadedBy": "admin@encantada.com"
   },
@@ -105,7 +105,7 @@
     "visibility": "protected",
     "fileName": "conflict-disclosure-register-placeholder.pdf",
     "fileType": "application/pdf",
-    "path": "official-documents/placeholders/conflict-disclosure-register-placeholder.pdf",
+    "path": "official-documents/conflict-and-related-party-documents/conflict-disclosure-register-placeholder.pdf",
     "uploadedAt": "2026-08-01T12:45:00.000Z",
     "uploadedBy": "admin@encantada.com"
   },
@@ -116,7 +116,7 @@
     "visibility": "public",
     "fileName": "owner-meeting-notice-agenda-placeholder.pdf",
     "fileType": "application/pdf",
-    "path": "official-documents/placeholders/owner-meeting-notice-agenda-placeholder.pdf",
+    "path": "official-documents/owner-meeting-notices-and-agendas/owner-meeting-notice-agenda-placeholder.pdf",
     "uploadedAt": "2026-08-01T12:50:00.000Z",
     "uploadedBy": "admin@encantada.com"
   },
@@ -127,7 +127,7 @@
     "visibility": "public",
     "fileName": "board-meeting-notice-agenda-placeholder.pdf",
     "fileType": "application/pdf",
-    "path": "official-documents/placeholders/board-meeting-notice-agenda-placeholder.pdf",
+    "path": "official-documents/board-meeting-notices-and-agendas/board-meeting-notice-agenda-placeholder.pdf",
     "uploadedAt": "2026-08-01T12:55:00.000Z",
     "uploadedBy": "admin@encantada.com"
   },
@@ -138,8 +138,9 @@
     "visibility": "protected",
     "fileName": "record-redaction-checklist-placeholder.pdf",
     "fileType": "application/pdf",
-    "path": "official-documents/placeholders/record-redaction-checklist-placeholder.pdf",
+    "path": "official-documents/redaction-and-access-policy/record-redaction-checklist-placeholder.pdf",
     "uploadedAt": "2026-08-01T13:00:00.000Z",
     "uploadedBy": "admin@encantada.com"
   }
 ]
+
