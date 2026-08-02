@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#17324d" />
+    <meta
+      name="description"
+      content="Shared Florida association records portal for online delivery requirements common to HOA and condominium associations."
+    />
+    <title>Association Records Portal</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <nav class="topbar" aria-label="Primary">
+        <a class="brand" href="#home" aria-label="Association Records Portal home">
+          <span class="brand-mark" aria-hidden="true">AR</span>
+          <span>
+            <span class="brand-title">Association Records Portal</span>
+            <span class="brand-subtitle">Florida shared-base PWA</span>
+          </span>
+        </a>
+        <div class="nav-actions">
+          <a href="#library">Library</a>
+          <a href="#compliance">Compliance</a>
+          <a href="#accounts">Accounts</a>
+          <a href="#supabase">Supabase</a>
+          <button class="icon-button" id="installButton" type="button" title="Install app" aria-label="Install app">
+            <span aria-hidden="true">+</span>
+          </button>
+        </div>
+      </nav>
+
+      <section class="hero" id="home">
+        <div class="hero-copy">
+          <p class="eyebrow">Shared foundation for HOA and condominium owners</p>
+          <h1>One online records hub for the documents both owner groups must be able to access.</h1>
+          <p>
+            This first version focuses only on the overlap between Florida HOA and condominium online access requirements, so the same base app can later branch into HOA-specific and condo-specific modules.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#library">Review shared records</a>
+            <a class="secondary-action" href="#request">Request access</a>
+          </div>
+        </div>
+        <aside class="status-panel" aria-label="Portal readiness summary">
+          <div>
+            <span class="metric">13</span>
+            <span class="metric-label">shared categories</span>
+          </div>
+          <div>
+            <span class="metric">Owner-only</span>
+            <span class="metric-label">protected portal model</span>
+          </div>
+          <div>
+            <span class="metric">Redaction</span>
+            <span class="metric-label">required before posting</span>
+          </div>
+        </aside>
+      </section>
+    </header>
+
+    <main>
+      <section class="section intro-grid" aria-label="Base app priorities">
+        <article>
+          <span class="section-kicker">Scope</span>
+          <h2>Built for the common core first</h2>
+          <p>
+            The portal includes the online document types that appear in both Florida HOA and condominium requirements. It intentionally leaves out condo-only records such as structural reports and HOA-only records such as disclosure summaries.
+          </p>
+        </article>
+        <article>
+          <span class="section-kicker">Access</span>
+          <h2>Public shell, protected records</h2>
+          <p>
+            General portal information can be public. Actual official records belong behind an owner-only location with username and password access.
+          </p>
+        </article>
+        <article>
+          <span class="section-kicker">Safety</span>
+          <h2>Redaction before release</h2>
+          <p>
+            The app treats privacy review as a first-class status so restricted personal, legal, security, medical, and personnel information is not accidentally posted.
+          </p>
+        </article>
+      </section>
+
+      <section class="section" id="library">
+        <div class="section-heading">
+          <span class="section-kicker">Shared Library</span>
+          <h2>Required in both HOA and condominium portals</h2>
+          <p>Filter by operational area or search by plain language.</p>
+        </div>
+
+        <div class="toolbar" aria-label="Document filters">
+          <label class="search-box">
+            <span>Search records</span>
+            <input id="searchInput" type="search" placeholder="Try budget, bylaws, meeting..." />
+          </label>
+          <div class="filter-group" role="group" aria-label="Category filter">
+            <button class="filter-button is-active" type="button" data-filter="all">All</button>
+            <button class="filter-button" type="button" data-filter="governance">Governance</button>
+            <button class="filter-button" type="button" data-filter="financial">Financial</button>
+            <button class="filter-button" type="button" data-filter="meetings">Meetings</button>
+            <button class="filter-button" type="button" data-filter="controls">Controls</button>
+          </div>
+        </div>
+
+        <div class="record-grid" id="recordGrid" aria-live="polite"></div>
+      </section>
+
+      <section class="section account-section" id="accounts">
+        <div class="account-copy">
+          <span class="section-kicker">Accounts</span>
+          <h2>User accounts and protected areas</h2>
+          <p>
+            Visitors can see public records, signed-in users can see protected records, and administrators can manage official documents.
+          </p>
+          <div class="session-card" id="sessionCard"></div>
+        </div>
+
+        <div class="account-forms">
+          <form id="accountForm" class="request-form">
+            <h3>Create demo account</h3>
+            <label>
+              Name
+              <input name="name" required placeholder="Example: Jordan Lee" />
+            </label>
+            <label>
+              Email
+              <input name="email" type="email" required placeholder="owner@example.com" />
+            </label>
+            <label>
+              Password
+              <input name="password" type="password" required minlength="8" placeholder="At least 8 characters" />
+            </label>
+            <label>
+              Role
+              <select name="role" required>
+                <option value="Owner">Owner</option>
+                <option value="Board">Board</option>
+                <option value="Admin">Admin</option>
+              </select>
+            </label>
+            <button class="primary-action" type="submit">Create account</button>
+            <p class="form-status" id="accountStatus" role="status"></p>
+          </form>
+
+          <div class="user-list" id="userList" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="section github-section" id="supabase">
+        <div>
+          <span class="section-kicker">Supabase</span>
+          <h2>Accounts and protected document storage</h2>
+          <p>
+            Connect your Supabase project so GitHub Pages can stay as the front door while Supabase handles sign-in, roles, document metadata, and private file storage.
+          </p>
+        </div>
+        <div class="account-forms">
+          <form id="supabaseForm" class="request-form">
+            <h3>Connect Supabase</h3>
+            <label>
+              Project URL
+              <input name="url" required placeholder="https://your-project.supabase.co" />
+            </label>
+            <label>
+              Public anon key
+              <input name="anonKey" required placeholder="Supabase anon public key" />
+            </label>
+            <label>
+              Storage bucket
+              <input name="bucket" required value="official-documents" />
+            </label>
+            <button class="primary-action" type="submit">Use Supabase</button>
+            <p class="form-status" id="supabaseStatus" role="status"></p>
+          </form>
+
+          <form id="loginForm" class="request-form">
+            <h3>Supabase sign in</h3>
+            <label>
+              Email
+              <input name="email" type="email" required placeholder="owner@example.com" />
+            </label>
+            <label>
+              Password
+              <input name="password" type="password" required placeholder="Password" />
+            </label>
+            <button class="primary-action" type="submit">Sign in</button>
+            <p class="form-status" id="loginStatus" role="status"></p>
+          </form>
+        </div>
+      </section>
+
+      <section class="section github-section" id="github">
+        <div>
+          <span class="section-kicker">GitHub Storage</span>
+          <h2>Temporary repository storage</h2>
+          <p>
+            Admins can connect a GitHub repository for this prototype. The token is used only in this browser session. Uploaded documents are committed to the repository, and account records are saved with password hashes.
+          </p>
+        </div>
+        <form id="githubForm" class="request-form">
+          <h3>Connect repository</h3>
+          <label>
+            Repository owner
+            <input name="owner" required placeholder="GitHub user or organization" />
+          </label>
+          <label>
+            Repository name
+            <input name="repo" required placeholder="Repository name" />
+          </label>
+          <label>
+            Branch
+            <input name="branch" required value="main" />
+          </label>
+          <label>
+            Fine-grained GitHub token
+            <input name="token" type="password" required placeholder="Not saved by the app" />
+          </label>
+          <button class="primary-action" type="submit">Use GitHub storage</button>
+          <p class="form-status" id="githubStatus" role="status"></p>
+        </form>
+      </section>
+
+      <section class="section document-admin" id="documents">
+        <div class="section-heading">
+          <span class="section-kicker">Official Documents</span>
+          <h2>Upload and manage records</h2>
+          <p id="documentIntro">
+            Public documents are visible to everyone. Protected documents require a signed-in user. Admin users can upload and delete official documents.
+          </p>
+        </div>
+
+        <form id="documentForm" class="request-form admin-only">
+          <h3>Add official document</h3>
+          <label>
+            Document title
+            <input name="title" required placeholder="Example: 2026 adopted budget" />
+          </label>
+          <label>
+            Shared category
+            <select name="recordId" id="documentCategory" required></select>
+          </label>
+          <label>
+            Visibility
+            <select name="visibility" required>
+              <option value="protected">Protected</option>
+              <option value="public">Public</option>
+            </select>
+          </label>
+          <label>
+            Official document file
+            <input name="file" type="file" required />
+          </label>
+          <button class="primary-action" type="submit">Upload document</button>
+          <p class="form-status" id="documentStatus" role="status"></p>
+        </form>
+
+        <div class="document-list" id="documentList" aria-live="polite"></div>
+      </section>
+
+      <section class="section compliance" id="compliance">
+        <div class="section-heading">
+          <span class="section-kicker">Compliance View</span>
+          <h2>Base workflow for every shared document</h2>
+        </div>
+        <div class="workflow">
+          <article>
+            <span class="step-number">1</span>
+            <h3>Collect</h3>
+            <p>Upload or link the official record in the correct shared category.</p>
+          </article>
+          <article>
+            <span class="step-number">2</span>
+            <h3>Review</h3>
+            <p>Confirm the document is current and applies to the association type.</p>
+          </article>
+          <article>
+            <span class="step-number">3</span>
+            <h3>Redact</h3>
+            <p>Remove protected or owner-restricted information before publishing.</p>
+          </article>
+          <article>
+            <span class="step-number">4</span>
+            <h3>Post</h3>
+            <p>Make available in the protected owner portal and surface meeting notices as required.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section access-request" id="request">
+        <div>
+          <span class="section-kicker">Owner Access</span>
+          <h2>Request portal credentials</h2>
+          <p>
+            This static prototype saves requests on the device only. A later version can connect this flow to real authentication, identity checks, document storage, notices, and association-specific permissions.
+          </p>
+        </div>
+        <form id="accessForm" class="request-form">
+          <label>
+            Association name
+            <input name="association" required placeholder="Example: Harbor Oaks Association" />
+          </label>
+          <label>
+            Owner name
+            <input name="owner" required placeholder="Your name" />
+          </label>
+          <label>
+            Property or unit
+            <input name="property" required placeholder="Lot, parcel, or unit identifier" />
+          </label>
+          <button class="primary-action" type="submit">Save request</button>
+          <p class="form-status" id="formStatus" role="status"></p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>
+        Prototype content based on shared online access categories in Florida Statutes sections 718.111(12)(g) and 720.303(4)(b). Not legal advice.
+      </p>
+    </footer>
+
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
