@@ -1,0 +1,16 @@
+[
+  {
+    "id": "owner",
+    "name": "Encantada Owner",
+    "email": "owner@encantada.com",
+    "role": "Owner",
+    "passwordHash": "164c4e46a137c7485f6a0fa1127d9e615dd703f72a5e02f63332085ab0ae6f02"
+  },
+  {
+    "id": "admin",
+    "name": "Encantada Admin",
+    "email": "admin@encantada.com",
+    "role": "Admin",
+    "passwordHash": "164c4e46a137c7485f6a0fa1127d9e615dd703f72a5e02f63332085ab0ae6f02"
+  }
+]

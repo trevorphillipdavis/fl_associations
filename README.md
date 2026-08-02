@@ -4,7 +4,20 @@ Static PWA prototype for a Florida association records portal hosted on GitHub P
 
 This first version includes only the online record categories that overlap between Florida HOA and condominium association requirements.
 
-The prototype also includes local demo accounts, visitor mode, visibility settings, admin-only document upload/delete, and an optional GitHub storage connector.
+The prototype includes visitor mode, member sign-in, admin-only document staging, and GitHub-hosted data files.
+
+## GitHub data files
+
+- `data/users.json` stores user accounts with password hashes.
+- `data/documents.json` stores the official document index.
+- `official-documents/` stores document files.
+
+Seed logins:
+
+- Owner: `owner@encantada.com` / `buffalo1`
+- Admin: `admin@encantada.com` / `buffalo1`
+
+This is prototype security only. For live protected association records, do not publish reusable passwords or protected documents in a public repository.
 
 ## Supabase setup
 
